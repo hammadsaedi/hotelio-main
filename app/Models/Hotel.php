@@ -20,5 +20,6 @@ class Hotel extends Model
         'RegNo',
         'Logo',
         'Photo',
+        'Admin'
     ];
 }

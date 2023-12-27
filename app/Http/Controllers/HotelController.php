@@ -10,6 +10,10 @@ use Yajra\Datatables\Datatables;
 
 class HotelController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']); // Apply 'auth' middleware to protect this controller
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,16 +50,23 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            Hotel::create($request->all());
-
-            return "Hotel Added Successfully !";
-        }
-        catch(Exception $error){
+        try {
+            $user = auth()->user();
+            $data = $request->all();
+    
+            if ($user->Role == 'SuperAdmin') {
+                Hotel::create($data);
+            } else {
+                $data['Admin'] = $user->id;
+                Hotel::create($data);
+            }
+    
+            return "Hotel Added Successfully!";
+        } catch (Exception $error) {
             return $error->getMessage();
         }
-
     }
+    
 
     /**
      * Display the specified resource.
