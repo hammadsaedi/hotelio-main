@@ -124,7 +124,7 @@ class RoomController extends Controller
     public function destroyAll()
     {
         Room::withTrashed()->delete();
-        return back()->with('DestroyAll', 'সমস্ত ডাটাকে খালি করা হলো');
+        return back()->with('DestroyAll', 'All data needs to be cleared');
     }
     /**
      * View Trash page 
@@ -149,7 +149,7 @@ class RoomController extends Controller
     public function restoreAll()
     {
         Room::withTrashed()->restore();
-        return back()->with('RestoreAll','সমস্ত ডাটাকে পুনরুদ্ধার করা হয়েছে');
+        return back()->with('RestoreAll','All data has been recovered');
     }
     /**
      * table remove delete
@@ -166,6 +166,6 @@ class RoomController extends Controller
     {
 
         Room::onlyTrashed()->forceDelete();
-        return back()->with('EmptyTrash', 'ট্রাস সম্পূর্ণরূপে খালি করা হলো');
+        return back()->with('EmptyTrash', 'The trash is completely emptied');
     }
 }

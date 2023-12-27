@@ -129,14 +129,14 @@ class BankController extends Controller
     public function restoreAll()
     {
         Bank::withTrashed()->restore();
-        return back()->with('RestoreAll','সমস্ত ডাটাকে পুনরুদ্ধার করা হয়েছে ');
+        return back()->with('RestoreAll','All data has been recovered ');
 
     }
 
     public function emptyTrash()
     {
         Bank::onlyTrashed()->forceDelete();
-        return back()->with('emptyTrash','ট্রাস সম্পূর্ণরূপে খালি করা হলো ');
+        return back()->with('emptyTrash','The trash is completely emptied ');
     }
 
 }

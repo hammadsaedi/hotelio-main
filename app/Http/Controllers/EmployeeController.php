@@ -154,13 +154,13 @@ class EmployeeController extends Controller
     public function restoreAll()
     {
         Employee::withTrashed()->restore();
-        return back()->with('restoreAll', 'সমস্ত ডাটাকে পুনরুদ্ধার করা হয়েছে ');
+        return back()->with('restoreAll', ' ');
     }
 
 
     public function emptyTrash()
     {
         Employee::onlyTrashed()->forceDelete();
-        return back()->with('emptyTrash', 'ট্রাস সম্পূর্ণরূপে খালি করা হলো ');
+        return back()->with('emptyTrash', ' ');
     }
 }
