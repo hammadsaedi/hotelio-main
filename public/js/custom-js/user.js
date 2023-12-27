@@ -56,7 +56,7 @@ $(document).ready(function(){
             {data:'Status'},
             {data:'LastLogin'},
             {data:'Role'},
-            {data:'action'}
+            // {data:'action'}
         ]
     });
 

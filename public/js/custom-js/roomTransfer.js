@@ -54,7 +54,7 @@ $(document).ready(function(){
             {data:'FromRoomID'},
             {data:'Room'},
             {data:'Date'},
-            {data:'action',name:'action'},
+            // {data:'action',name:'action'},
             
         ]
     });
