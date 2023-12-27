@@ -142,7 +142,7 @@ class BookingController extends Controller
     public function destroyAll()
     {
         Booking::withTrashed()->delete();
-        return back()->with('DestroyAll', 'সমস্ত ডাটাকে খালি করা হলো');
+        return back()->with('DestroyAll', '');
     }
     /**
      * View Trash page 
@@ -166,7 +166,7 @@ class BookingController extends Controller
     public function restoreAll()
     {
         Booking::withTrashed()->restore();
-        return back()->with('RestoreAll', 'সমস্ত ডাটাকে পুনরুদ্ধার করা হয়েছে');
+        return back()->with('RestoreAll', '');
     }
     /**
      * table remove delete
@@ -182,6 +182,6 @@ class BookingController extends Controller
     public function emptyTrash()
     {
         Booking::onlyTrashed()->forceDelete();
-        return back()->with('EmptyTrash', 'ট্রাস সম্পূর্ণরূপে খালি করা হলো');
+        return back()->with('EmptyTrash', '');
     }
 }

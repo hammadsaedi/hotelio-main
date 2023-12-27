@@ -146,13 +146,13 @@ class HotelController extends Controller
     public function restoreAll()
     {
         Hotel::withTrashed()->restore();
-        return back()->with('RestoreAll','সমস্ত ডাটাকে পুনরুদ্ধার করা হয়েছে ');
+        return back()->with('RestoreAll','All data has been recovered');
     }
 
     //emptyTrash
     public function emptyTrash()
     {
         Hotel::onlyTrashed()->forceDelete();
-        return back()->with('emptyTrash','ট্রাস সম্পূর্ণরূপে খালি করা হলো ');
+        return back()->with('emptyTrash','The trash is completely emptied ');
     }
 }
