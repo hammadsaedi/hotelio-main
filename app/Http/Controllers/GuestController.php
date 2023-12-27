@@ -130,7 +130,7 @@ class GuestController extends Controller
     public function restoreAll()
     {
         Guest::withTrashed()->restore();
-        return back()->with('RestoreAll','সমস্ত ডাটাকে পুনরুদ্ধার করা হয়েছে ');
+        return back()->with('RestoreAll',' ');
     }
 
     public function forceDelete($id)
@@ -142,7 +142,7 @@ class GuestController extends Controller
     public function emptyTrash()
     {
         Guest::onlyTrashed()->forceDelete();
-        return $this->index()->with('emptyTrash','ট্রাস সম্পূর্ণরূপে খালি করা হলো ');
+        return $this->index()->with('emptyTrash',' ');
     }
 
 }
