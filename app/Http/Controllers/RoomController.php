@@ -7,6 +7,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Hotel;
+use App\Models\Employee;
 use Exception;
 
 class RoomController extends Controller
@@ -18,12 +19,76 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $Hotels = Hotel::all();
-        // $Rooms  = Room::all();
-        if (request()->ajax()) {
-            return $Rooms = Datatables::of($this->dtQuery())->addColumn('action','layouts.dt_buttons')->make(true);
+        $user = auth()->user();
+        if ($user->Role == 'SuperAdmin') {
+            $Rooms = Room::all();
+            $Hotels = Hotel::all();
+            if (request()->ajax()) {
+                return Datatables::of($Rooms)
+                    ->addColumn('HotelName', function($room) {
+
+                        $hotelName = Hotel::where('id', $room->HotelID)->value('Name');
+                        return $hotelName;
+                    })
+                    ->addColumn('action', 'layouts.dt_buttons')
+                    ->make(true);
+            }
+            return view('room.index', compact('Hotels', 'Rooms'));
+        } else if ($user->Role == 'Admin') {
+            // Fetch hotels associated with the admin user
+            $Hotels = Hotel::where('Admin', $user->id)->get();
+        
+            // Extract hotel IDs from the fetched hotels
+            $hotelIds = $Hotels->pluck('id')->toArray();
+        
+            // Fetch rooms associated with the extracted hotel IDs
+            $Rooms = Room::whereIn('HotelId', $hotelIds)->get();
+        
+            if (request()->ajax()) {
+                return Datatables::of($Rooms)
+                    ->addColumn('HotelName', function ($Room) use ($Hotels) {
+                        // Find the corresponding hotel name for each room
+                        $Hotel = $Hotels->where('id', $Room->HotelId)->first();
+                        return $Hotel ? $Hotel->Name : '-';
+                    })
+                    ->addColumn('action', 'layouts.dt_buttons')
+                    ->make(true);
+            }
+        
+            return view('room.index', compact('Hotels', 'Rooms'));
         }
-        return view('room.index',compact('Hotels'));        
+        
+        $employeeId = $user->EmployeeID;
+
+        $employee = Employee::find($employeeId);
+
+        if ($employee) {
+            $hotelId = $employee->HotelID;
+            $employee = Employee::find($employeeId);
+            $employeeHotelId = $employee->HotelID;
+            $Hotels = Hotel::where('id', $employeeHotelId)->get();
+
+            // Fetch rooms associated with the hotel ID directly
+            $Rooms = Room::where('HotelID', $hotelId)->get();
+
+            if (request()->ajax()) {
+                return Datatables::of($Rooms)
+
+                    ->addColumn('HotelName', function($room) {
+
+                        $hotelName = Hotel::where('id', $room->HotelID)->value('Name');
+                        return $hotelName;
+                    })
+
+                    ->addColumn('action', 'layouts.dt_buttons')
+
+                    ->make(true);
+            }
+
+            return view('room.index', compact('Hotels', 'Rooms'));
+        }
+
+        return redirect()->route('home')->with('error', 'Employee details not found.');
     }
 
     public function dtQuery()
