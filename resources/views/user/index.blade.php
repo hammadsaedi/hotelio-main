@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid py-5 ">
-    {{-- <section class="button mb-4">
-            <a href="{{ asset('booking/create') }}" class="btn btn-info text-capitalize"> <i class="fa-solid fa-circle-plus mr-2"></i>Add</a>
-    </section> --}}
     <div class="row">
         <div class="col-md-12 m-auto">
             @if (Session::get('Destroy'))
@@ -25,10 +22,10 @@
                 <div class="card-header bg-defult">
                     <div class="card-title">
                         <h2 class="card-title">
-                            {{-- <a href="{{ asset('user/create') }}" class="btn bg-navy text-capitalize mr-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create Room">
+                            <a href="{{ asset('user/create') }}" class="btn bg-navy text-capitalize mr-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create Room">
                                 <i class="fa-solid fa-circle-plus mr-2"></i>
                                 Add
-                            </a> --}}
+                            </a> 
                             User List
                         </h2>
                     </div>
@@ -85,7 +82,6 @@
                                                     <option value="Admin">Admin</option>
                                                     <option value="Manager">Manager</option>
                                                     <option value="Cashier">Cashier</option>
-                                                    <option value="Staff">Staff</option>
                                                 </select>
                                             </div>
                                         </div>

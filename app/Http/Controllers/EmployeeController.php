@@ -18,15 +18,54 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $Hotels = Hotel::all();
-        if(request()->ajax()){
-            return $Employees = Datatables::of($this->dtQuery())
-            ->addColumn('action','layouts.dt_buttons')
-            ->make(true);
-        }
-        return view('employee.index', compact('Hotels'));
+        $user = auth()->user();
+        if ($user->Role == 'Admin') {
+            // Fetch hotels associated with the admin user
+            $Hotels = Hotel::where('Admin', $user->id)->get();
         
+            // Extract hotel IDs from the fetched hotels
+            $hotelIds = $Hotels->pluck('id')->toArray();
+        
+            // Fetch employees associated with the extracted hotel IDs
+            $Employees = Employee::whereIn('HotelId', $hotelIds)->get();
+        
+            if (request()->ajax()) {
+                return Datatables::of($Employees)
+    
+                    ->addColumn('Hotel', function($employee) {
+    
+                        $hotelName = Hotel::where('id', $employee->HotelID)->value('Name');
+                        return $hotelName;
+                    })
+    
+                    ->addColumn('action', 'layouts.dt_buttons')
+    
+                    ->make(true);
+            }
+        
+            return view('employee.index', compact('Hotels', 'Employees'));
+        }
+
+        $Employees = Employee::all();
+        $Hotels = Hotel::all();
+
+        if (request()->ajax()) {
+            return Datatables::of($Employees)
+
+                ->addColumn('Hotel', function($employee) {
+
+                    $hotelName = Hotel::where('id', $employee->HotelID)->value('Name');
+                    return $hotelName;
+                })
+
+                ->addColumn('action', 'layouts.dt_buttons')
+
+                ->make(true);
+        }
+
+        return view('employee.index', compact('Hotels', 'Employees'));
     }
+
     public function dtQuery()
     {
         return $Employees = Employee::select('employees.*', 'hotels.Name as Hotel')

@@ -6,6 +6,7 @@
     </a>
 </li>
 
+@if(Auth::user()->Role == 'SuperAdmin' || Auth::user()->Role == 'Admin')
 <li class="nav-item">
     <a href="/hotel" class="nav-link {{ Request::is('hotel') ? 'active' : '' }}">
         <i class="nav-icon fas  fa-hotel"></i>
@@ -32,7 +33,9 @@
         <p>BankLedger</p>
     </a>
 </li>
+@endif
 
+@if(Auth::user()->Role == 'SuperAdmin' || Auth::user()->Role == 'Admin' || Auth::user()->Role == 'Manager')
 <li class="nav-item">
     <a href="/room" class="nav-link {{ Request::is('room') ? 'active' : '' }}">
         <span class="material-symbols-outlined nav-icon">
@@ -41,21 +44,13 @@
         <p>Room</p>
     </a>
 </li>
-<li class="nav-item">
-    <a href="/roomTransfer" class="nav-link {{ Request::is('roomTransfer') ? 'active' : '' }}">
-        <span class="material-symbols-outlined nav-icon fes">
-            transfer_within_a_station
-        </span>
-        <p class="p-0 m-0">Room Transfer</p>
-    </a>
-</li>
+
 <li class="nav-item">
     <a href="/booking" class="nav-link {{ Request::is('booking') ? 'active' : '' }}">
         <i class="fa-solid fa-arrows-to-dot nav-icon fas"></i>
         <p>Booking</p>
     </a>
 </li>
-
 
 <li class="nav-item">
     <a href="/guest" class="nav-link {{ Request::is('guest') ? 'active' : '' }}">
@@ -65,6 +60,18 @@
         <p>Guest</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="/roomTransfer" class="nav-link {{ Request::is('roomTransfer') ? 'active' : '' }}">
+        <span class="material-symbols-outlined nav-icon fes">
+            transfer_within_a_station
+        </span>
+        <p class="p-0 m-0">Room Transfer</p>
+    </a>
+</li>
+@endif
+
+@if(Auth::user()->Role == 'SuperAdmin' || Auth::user()->Role == 'Admin')
 <li class="nav-item">
     <a href="/user" class="nav-link {{ Request::is('user') ? 'active' : '' }}">
         <i class="fa-solid fa-user nav-icon fas"></i>
@@ -152,6 +159,7 @@
         <p>TaxSetting</p>
     </a>
 </li>
+@endif
 
 @if(Auth::user()->Role == 'SuperAdmin' || Auth::user()->Role == 'Admin')
 <li class="nav-item">

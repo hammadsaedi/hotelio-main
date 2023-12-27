@@ -46,12 +46,15 @@ class RoomController extends Controller
         
             if (request()->ajax()) {
                 return Datatables::of($Rooms)
-                    ->addColumn('HotelName', function ($Room) use ($Hotels) {
-                        // Find the corresponding hotel name for each room
-                        $Hotel = $Hotels->where('id', $Room->HotelId)->first();
-                        return $Hotel ? $Hotel->Name : '-';
+
+                    ->addColumn('HotelName', function($room) {
+
+                        $hotelName = Hotel::where('id', $room->HotelID)->value('Name');
+                        return $hotelName;
                     })
+
                     ->addColumn('action', 'layouts.dt_buttons')
+
                     ->make(true);
             }
         

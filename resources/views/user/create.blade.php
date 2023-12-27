@@ -14,12 +14,12 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <h2 class="card-title text-navy">
-                             <a href="{{ asset('room') }}" class="mr-3"><i class="fa-solid fa-circle-arrow-left fs-5 text-navy" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Back to List"></i></a>
-                            Add a new Room
+                             <a href="{{ asset('user') }}" class="mr-3"><i class="fa-solid fa-circle-arrow-left fs-5 text-navy" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Back to List"></i></a>
+                            Add a new User
                         </h2>
                     </div>
 
-                    {{ Form::open(array('url' => 'room', 'method' => 'POST','class' => 'form-horizantal','files' => true)) }}
+                    {{ Form::open(array('url' => 'user', 'method' => 'POST','class' => 'form-horizantal','files' => true)) }}
                         <div class="card-body pb-0">
                             <div class="form-group row">
                                 <div class="col-md-6">
@@ -28,11 +28,11 @@
                                         <div class="col-md-8">
                                             <select type="number" name="EmployeeID" id=""  class="form-select" required>
                                                 <option value="">Select Employee </option>
-                                                {{-- @foreach ()
+                                                @foreach ($Employees as $Employee)
                                                 <option value="">
-                                                   
+                                                    {{$Employee->Name}}
                                                 </option>
-                                                @endforeach --}}
+                                                @endforeach 
                                             </select>
                                         </div>  
                                     

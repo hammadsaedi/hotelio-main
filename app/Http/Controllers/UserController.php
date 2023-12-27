@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Models\Hotel;
 
 
 class UserController extends Controller
@@ -17,8 +18,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $Users = User::select('users.*','users.EmployeeID as Employee')
-        // ->get();
+        $user = auth()->user();
+        if ($user->Role == 'Admin') {
+            // Fetch hotels associated with the admin user
+            $Hotels = Hotel::where('Admin', $user->id)->get();
+            $Employees = Employee::whereIn('HotelID', $Hotels->pluck('id')->toArray())->get();
+            $User = User::whereIn('EmployeeID', $Employees->pluck('id')->toArray())->get();
+            if (request()->ajax()) {
+                return Datatables::of($User)->addColumn('action','layouts.user_action')->make(true);
+            }
+            return view('user.index');
+        }
         if (request()->ajax()) {
             return Datatables::of(User::all())->addColumn('action','layouts.user_action')->make(true);
         }
@@ -32,7 +42,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $user = auth()->user();
+        if($user->Role == 'Admin'){
+            $Hotels = Hotel::where('Admin', $user->id)->get();
+            $Employees = Employee::whereIn('HotelID', $Hotels->pluck('id')->toArray())->get();
+            return view('user.create', compact('Employees'));
+        }
+        $Employees = Employee::all();
+        return view('user.create', compact('Employees'));
     }
 
     /**
@@ -43,7 +60,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->EmployeeID = $request->EmployeeID;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return back();
     }
 
     public function assignRole(Request $request)
