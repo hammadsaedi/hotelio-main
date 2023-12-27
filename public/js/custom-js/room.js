@@ -69,8 +69,8 @@ $(document).ready(function(){
             {data:'TV', render:function(data, type,row){
                 return data == 1? '<i class="fa fa-check text-success"></i>':'<i class="fa-solid fa-xmark text-danger"></i>';
             }},
-            {data:'Price'},
-            {data:'action'}
+            {data:'Price'}
+            // {data:'action'}
         ]
     });
 

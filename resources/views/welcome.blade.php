@@ -16,7 +16,8 @@
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="css/style.css">
+        <!-- <link rel="stylesheet" href="css/style.css"> -->
+        <link rel="stylesheet" href="{{URL::asset('css/style.css')}}">
         <style>
             /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
             html {
@@ -457,14 +458,14 @@
                     <div class="col-md-9 text-center">
                         <div class="container">
                             <div class="d-flex flex-column  pt-5">
-                                <div class="left-headig">
+                                <div class="left-heading">
                                     <h1>Hotelio</h1>
                                 </div>
                                 <div>
                                     <h4>Welcome Back!</h4>
                                 </div>
                                 <div>
-                                    <p class="">
+                                    <p>
                                         The great advantage of a hotel is that it is a refuge from home life.
                                     </p>
                                 </div>
