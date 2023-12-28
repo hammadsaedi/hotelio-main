@@ -13,6 +13,9 @@
         <p>Hotel</p>
     </a>
 </li>
+@endif
+
+@if(Auth::user()->Role == 'SuperAdmin' || Auth::user()->Role == 'Admin' || Auth::user()->Role == 'Cashier')
 <li class="nav-item">
     <a href="/acount/ledger" class="nav-link {{ Request::is('acount/ledger') ? 'active' : '' }}">
         <span class="material-symbols-outlined nav-icon ">account_circle</span>
@@ -84,7 +87,9 @@
         <p>Employee</p>
     </a>
 </li>
+@endif
 
+@if(Auth::user()->Role == 'SuperAdmin')
 {{--Income Dropdown  --}}
 <li class="nav-item ">
 	<a href="#" class="nav-link">
@@ -108,7 +113,6 @@
 		</li>
 	</ul>
 </li>
-{{--  --}}
 
 {{-- Expense Dropdown --}}
 <li class="nav-item">
@@ -133,13 +137,15 @@
 		</li>
 	</ul>
 </li>
-{{--  --}}
 <li class="nav-item">
     <a href="/balance" class="nav-link {{ Request::is('balance') ? 'active' : '' }}">
         <i class="fa-solid fa-file-invoice-dollar nav-icon fas"></i>
         <p>Balance</p>
     </a>
 </li>
+@endif
+
+@if(Auth::user()->Role == 'SuperAdmin' || Auth::user()->Role == 'Admin' || Auth::user()->Role == 'Cashier')
 <li class="nav-item">
     <a href="/invoice" class="nav-link {{ Request::is('invoice') ? 'active' : '' }}">
         <i class="fa-solid fa-file-invoice-dollar nav-icon fas"></i>
@@ -161,7 +167,7 @@
 </li>
 @endif
 
-@if(Auth::user()->Role == 'SuperAdmin' || Auth::user()->Role == 'Admin')
+@if(Auth::user()->Role == 'SuperAdmin')
 <li class="nav-item">
     <a href="/sms" class="nav-link {{ Request::is('sms') ? 'active' : '' }}">
         <i class="fa fa-email nav-icon fas"></i>
@@ -175,5 +181,4 @@
         <p>Payment</p>
     </a>
 </li>
-
 @endif
