@@ -30,7 +30,7 @@
                                                 <option value="">Select Employee </option>
                                                 @foreach ($Employees as $Employee)
                                                 <option value="">
-                                                    {{$Employee->Name}}
+                                                    {{$Employee->id}}
                                                 </option>
                                                 @endforeach 
                                             </select>

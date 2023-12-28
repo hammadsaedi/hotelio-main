@@ -52,7 +52,7 @@ $(document).ready(function(){
             {data:'Room'},
             {data:'Guest'},
             {data:'CheckInDate'},
-            // {data:'action',name:'action'},
+            {data:'action',name:'action'},
         ]
     })
 

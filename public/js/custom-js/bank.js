@@ -57,7 +57,7 @@ $(document).ready(function(){
             {data:'Address'},
             {data:'Phone'},
             {data:'Email'},
-            // {data:'action',name:'action'},
+            {data:'action',name:'action'},
         ],
     });
 

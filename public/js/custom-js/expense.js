@@ -54,7 +54,7 @@ $(document).ready(function(){
             {data : 'Amount'},
             {data : 'Description'},
             {data : 'Date'},
-            // {data : 'action' , name : 'action'},
+            {data : 'action' , name : 'action'},
         ],
     });
 

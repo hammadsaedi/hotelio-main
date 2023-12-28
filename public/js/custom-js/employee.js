@@ -60,7 +60,7 @@ $(document).ready(function(){
             {data : 'DateOfJoin'},
             {data : 'Status', render:function (data, type , row) { return data == 1? '<i class="fa fa-check text-success"></i>':'<i class="fa fa-times text-danger"></i>';
         }}, 
-            // {data : 'action',name:'action'},
+            {data : 'action',name:'action'},
         ]
     });
 

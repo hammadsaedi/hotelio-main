@@ -56,7 +56,7 @@ $(document).ready(function(){
             {data:'Status',render:function(data,type,row){
                 return data == 1?'<span class="text-success"><b>Active</></span>':'<span class="text-success"><b>Inactive</b></span>';
             }},
-            // {data:'action',name:'action'},
+            {data:'action',name:'action'},
         ],
     });
 

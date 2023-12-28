@@ -50,7 +50,7 @@ $(document).ready(function(){
         },
         columns:[
             {data : 'Name'},
-            // {data : 'action', name : 'action'},
+            {data : 'action', name : 'action'},
         ],
     });
 
