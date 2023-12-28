@@ -167,6 +167,7 @@
 </li>
 @endif
 
+{{--
 @if(Auth::user()->Role == 'SuperAdmin')
 <li class="nav-item">
     <a href="/sms" class="nav-link {{ Request::is('sms') ? 'active' : '' }}">
@@ -182,3 +183,4 @@
     </a>
 </li>
 @endif
+--}}
