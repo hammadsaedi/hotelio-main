@@ -55,16 +55,40 @@ class BookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        /**return $request->all(); */
-        try {
-            Booking::create($request->all());
-            Room::find($request->RoomID)->update(['Status' => 1]);
-            return 'Booking Added Successfully !';
-        } catch (Exception $error) {
-            return $error->getMessage();
+{
+    try {
+        // Validate the request data
+        $request->validate([
+            'RoomID' => 'required|exists:rooms,id', // Check if the RoomID exists in the rooms table
+            'GuestID' => 'required|exists:guests,id', // Check if the GuestID exists in the guests table
+            'CheckInDate' => 'required|date',
+            'CheckOutDate' => 'required|date|after:CheckInDate',
+        ]);
+
+        // Check if the room is already booked for the selected date range
+        $existingBooking = Booking::where('RoomID', $request->RoomID)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('CheckInDate', [$request->CheckInDate, $request->CheckOutDate])
+                    ->orWhereBetween('CheckOutDate', [$request->CheckInDate, $request->CheckOutDate]);
+            })
+            ->first();
+
+        if ($existingBooking) {
+            return 'Error: Room is already booked for the selected date range!';
         }
+
+        // Create a new booking
+        $booking = Booking::create($request->all());
+
+        // Update the room status
+        Room::find($request->RoomID)->update(['Status' => 1]);
+
+        return 'Booking Added Successfully!';
+    } catch (Exception $error) {
+        return $error->getMessage();
     }
+}
+
 
     /**
      * Display the specified resource.

@@ -27,6 +27,7 @@
                                     <th>Room</th>
                                     <th>Guest</th>
                                     <th>CheckInDate</th>
+                                    <th>CheckOutDate</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -106,6 +107,13 @@
                                     <input type="date" name="CheckInDate" class="form-control" required> 
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="CheckInDate" class="form-label  col-md-4">Check-Out Date:</label>
+                                <div class="col-md-7">
+                                    <input type="date" name="CheckOutDate" class="form-control" required> 
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default text-capitalize" id="ResetBtnForm">Reset</button>
                                 <button type="button" name="submit" type="submit" class="btn bg-navy text-capitalize" id="SubmitBtn">submit</button>
@@ -160,6 +168,14 @@
                                         <div class="col-md-8">
 
                                             <input type="text" name="CheckInDate" id="EditCheckInDate" class="form-control">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="CheckInDate" class="form-label col-md-3">CheckOutDate:</label>
+                                        <div class="col-md-8">
+
+                                            <input type="text" name="CheckOutDate" id="EditCheckInDate" class="form-control">
 
                                         </div>
                                     </div>
